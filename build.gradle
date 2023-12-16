@@ -65,6 +65,13 @@ dependencies {
 	 
 	 implementation 'io.springfox:springfox-boot-starter'
 	 
+	 developmentOnly 'org.springframework.boot:spring-boot-devtools'
+   	 runtimeOnly 'com.h2database:h2'
+   	 implementation group: 'org.hibernate', name: 'hibernate-core'
+   	 implementation group: 'org.hibernate', name: 'hibernate-entitymanager'
+   	 implementation group: 'javax.xml.bind', name: 'jaxb-api'
+     //https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+   
 	   implementation  group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
    implementation  group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
    implementation  group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '2.0.2'
