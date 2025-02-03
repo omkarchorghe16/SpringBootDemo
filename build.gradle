@@ -1,23 +1,18 @@
 plugins {
 	id 'java'
 	id 'war'
-	id 'org.springframework.boot' version '2.5.8'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.3'
 	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
 group = 'com.demo'
 version = '0.0.1-SNAPSHOT'
 
-//java {
-//	sourceCompatibility = '1.8'
-//}
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
 
 configurations {
 	compileOnly {
@@ -34,54 +29,47 @@ ext {
 }
 
 dependencies {
+	// Spring Boot dependencies
+	//implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter:3.1.2'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	//implementation 'org.springframework.boot:spring-boot-starter-amqp'
-	//implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	
-	//implementation 'org.springframework.boot:spring-boot-starter-integration'
-	//implementation 'org.springframework.boot:spring-boot-starter-mail'
-	//implementation 'org.springframework.boot:spring-boot-starter-quartz'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.springframework.integration:spring-integration-amqp'
-	//implementation 'org.springframework.integration:spring-integration-http'
-	//implementation 'org.springframework.integration:spring-integration-jpa'
-	//implementation 'org.springframework.integration:spring-integration-mail'
-	//implementation 'org.springframework.integration:spring-integration-security'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+
+	// Lombok for reducing boilerplate code in entities
+	compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+	// Provided runtime
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	// Test dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	//testImplementation 'org.springframework.amqp:spring-rabbit-test'
-	//testImplementation 'org.springframework.batch:spring-batch-test'
-	//testImplementation 'org.springframework.integration:spring-integration-test'
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
-	
-	 runtimeOnly 'org.postgresql:postgresql'
-	 
-	 implementation 'io.springfox:springfox-boot-starter'
-	 
-	 developmentOnly 'org.springframework.boot:spring-boot-devtools'
-   	 runtimeOnly 'com.h2database:h2'
-   	 implementation group: 'org.hibernate', name: 'hibernate-core'
-   	 implementation group: 'org.hibernate', name: 'hibernate-entitymanager'
-   	 implementation group: 'javax.xml.bind', name: 'jaxb-api'
-     //https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-   
-	   implementation  group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
-   implementation  group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
-   implementation  group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '2.0.2'
-   implementation  group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.2'
-   
-   //   implementation  group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
-   //implementation  group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
-   //implementation  group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
-   //implementation  group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.2'
-   
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+	// Databases (H2)
+	runtimeOnly 'com.h2database:h2'
+
+	// Swagger/OpenAPI documentation
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+	// Development tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+
+
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.7.0'
+
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+	implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+	implementation 'com.zaxxer:HikariCP:5.0.1'
+	implementation 'jakarta.annotation:jakarta.annotation-api:2.1.1'
+
+	implementation 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
 }
 
 tasks.named('test') {

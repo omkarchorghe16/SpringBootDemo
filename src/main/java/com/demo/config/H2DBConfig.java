@@ -2,7 +2,7 @@ package com.demo.config;
 
 import java.util.HashMap;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory2",
-transactionManagerRef = "entityTransactionManager2",
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
+transactionManagerRef = "entityTransactionManager",
 basePackages = { "com.demo.h2.repository" })
 public class H2DBConfig {
 
-	@Bean(name ="datasource2")
-	@ConfigurationProperties(prefix = "spring.datasource2")
+	@Bean(name ="datasource")
+	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource db2DataSource() {
 		
 		return DataSourceBuilder.create()
@@ -39,9 +39,9 @@ public class H2DBConfig {
 	}
 
 	//@Primary
-	@Bean(name = "entityManagerFactory2")
+	@Bean(name = "entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory2(EntityManagerFactoryBuilder builder,
-			@Qualifier("datasource2") DataSource dataSource) {
+			@Qualifier("datasource") DataSource dataSource) {
 
 		HashMap<String, Object> properties = new HashMap<String, Object>();
 		properties.put("hibernate.hbm2ddl.auto", "update");
@@ -54,9 +54,9 @@ public class H2DBConfig {
 
 	//@Primary
 	@Bean
-	public PlatformTransactionManager entityTransactionManager2(
-			@Qualifier("entityManagerFactory2") EntityManagerFactory entityManagerFactory2) {
-		return new JpaTransactionManager(entityManagerFactory2);
+	public PlatformTransactionManager entityTransactionManager(
+			@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
 	}
 
 }
